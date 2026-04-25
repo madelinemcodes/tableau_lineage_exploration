@@ -1,0 +1,14 @@
+{
+embeddedDatasources {
+    id
+    name
+    parentPublishedDatasources {
+      luid
+      name
+    }
+    workbook {
+      luid
+      name
+    }
+  }
+}
