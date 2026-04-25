@@ -1,0 +1,18 @@
+{
+publishedDatasources {
+    name
+    luid
+    downstreamDatasources {
+      name
+      luid
+    }
+    downstreamFlows {
+      name
+      luid
+    }
+    downstreamWorkbooks {
+      name
+      luid
+    }
+  }
+}
