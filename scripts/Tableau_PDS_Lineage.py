@@ -27,7 +27,7 @@ conn = TableauServerConnection(config, env="tableau_prod")
 conn.sign_in()
 
 #Start with Published Data Source Lineage
-pds_metadata = 'queries/pds_lineage.txt'
+pds_metadata = 'pds_lineage.txt'
 
 with open (pds_metadata,'r') as file:
     data = file.read()
@@ -115,7 +115,7 @@ json_string = json.dumps(json_output)
 pds_df = process_json_to_dataframe(json_string)
 
 #Continue with Embedded Data Source Lineage
-eds_metadata = 'queries/eds_lineage.txt'
+eds_metadata = 'eds_lineage.txt'
 
 with open (eds_metadata,'r') as file:
     data = file.read()
@@ -186,10 +186,8 @@ eds_df = process_json_to_dataframe(json_string)
 
 #COMBINE THEM and DEDUPE
 union_df = pd.concat([pds_df, eds_df],ignore_index=True)
-pre_dedupe = len(union_df)
-
 union_df = union_df.drop_duplicates().reset_index(drop=True)
-post_dedupe = len(union_df)
+union_df['runtime'] = time_now
 
 
 output_dir = os.path.join(os.path.dirname(__file__), '..', 'output')
